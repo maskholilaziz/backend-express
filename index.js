@@ -7,6 +7,9 @@ const cors = require("cors");
 // import bodyParse
 const bodyParser = require("body-parser");
 
+// import router
+const router = require("./routes");
+
 // init app
 const app = express();
 
@@ -26,6 +29,9 @@ const port = 3000;
 app.get("/", (req, res) => {
     res.send("Hello World!");
 });
+
+// define route
+app.use("/api/v1", router);
 
 // start server
 app.listen(port, () => {
