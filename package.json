@@ -1,0 +1,23 @@
+{
+  "name": "backend-express",
+  "version": "1.0.0",
+  "description": "",
+  "homepage": "https://github.com/maskholilaziz/backend-express#readme",
+  "bugs": {
+    "url": "https://github.com/maskholilaziz/backend-express/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/maskholilaziz/backend-express.git"
+  },
+  "license": "ISC",
+  "author": "Muhammad Kholil Aziz Ashari",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "express": "^4.19.2"
+  }
+}
