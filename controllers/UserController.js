@@ -198,4 +198,56 @@ const updateUser = async (req, res) => {
     }
 }
 
-module.exports = { findUsers, createUser, findUserById, updateUser };
+// function delete user
+const deleteUser = async (req, res) => {
+    // get ID from params
+    const { id } = req.params;
+
+    try {
+        // get user By ID
+        const user = await prisma.user.findFirst({
+            where: {
+                id: id,
+                deleted_at: null
+            },
+            select: {
+                id: true,
+                name: true,
+                email: true
+            }
+        });
+
+        // user not found
+        if (!user) {
+            return res.status(404).json({
+                success: false,
+                message: "User not found"
+            });
+        }
+
+        // delete user
+        const deletedUser = await prisma.user.update({
+            where: {
+                id: id
+            },
+            data: {
+                deleted_at: new Date()
+            }
+        });
+
+        // kembalikan respon
+        res.status(200).json({
+            success: true,
+            message: "Delete user successfully",
+            data: deletedUser
+        });
+    } catch (error) {
+        res.status(500).json({
+            success: false,
+            message: "Internal Server Error",
+            error: error.message
+        });
+    }
+}
+
+module.exports = { findUsers, createUser, findUserById, updateUser, deleteUser };
