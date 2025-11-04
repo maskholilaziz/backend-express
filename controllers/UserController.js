@@ -86,4 +86,48 @@ const createUser = async (req, res) => {
     }
 }
 
-module.exports = { findUsers, createUser };
+// function findUserById
+const findUserById = async (req, res) => {
+
+    // get ID from params
+    const id = req.params;
+
+    try {
+        // find user
+        const user = await prisma.user.findFirst({
+            where: {
+                id: req.params.id,
+                deleted_at: null
+            },
+            select: {
+                id: true,
+                name: true,
+                email: true
+            }
+        });
+
+        // user not found
+        if (!user) {
+            return res.status(404).json({
+                success: false,
+                message: "User not found"
+            });
+        }
+
+        // kembalikan respon
+        res.status(200).json({
+            success: true,
+            message: "Get user successfully",
+            data: user
+        });
+    } catch (error) {
+        // kembalikan error
+        res.status(500).json({
+            success: false,
+            message: "Internal Server Error",
+            error: error.message
+        });
+    }
+}
+
+module.exports = { findUsers, createUser, findUserById };
